@@ -17,13 +17,16 @@ export default function AddProduct(props) {
     setProductname(event.target.value);
   };
 
-  const addProductButtonHandler = () => {
+  const addProductButtonHandler = (event) => {
+    event.preventDefault();
     const newproductDetails = {
       pID,
       productname,
       sellingPrice,
     };
-    props.onSubmitHandler(newproductDetails);
+    if (pID !== '' && productname !== '' && sellingPrice !== '') {
+      props.onSubmitHandler(newproductDetails);
+    }
     setPID('');
     setProductname('');
     setSellingPrice('');
@@ -43,7 +46,7 @@ export default function AddProduct(props) {
 
           <label htmlFor="sellingPrice">Selling Price</label>
           <input
-            type="text"
+            type="number"
             id="sellingPrice"
             value={sellingPrice}
             onChange={sellingPriceChangeHandler}
@@ -56,7 +59,6 @@ export default function AddProduct(props) {
             value={productname}
             onChange={productNameChangeHandler}
           />
-
           <button type="submit">Add Product</button>
         </div>
       </form>
